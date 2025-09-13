@@ -1,5 +1,5 @@
-Category: Reversing
-Points: 950
+Category: Reversing \
+Points: 950 \
 Diff: very easy
 
 Description: The team stumbles into a long-abandoned casino. As you enter, the lights and music whir to life, and a staff of robots begin moving around and offering games, while skeletons of prewar patrons are slumped at slot machines. A robotic dealer waves you over and promises great wealth if you can win - can you beat the house and gather funds for the mission?
@@ -91,10 +91,10 @@ $ gdb casino
 
 ```
 
-It seems that the main logic is wrapped in a loop, whose counter is stored at `rbp-0x4`, and incremented by 1 at each iteration. The loop continues for `0x1c + 0x1` or 29 iterations.
-Inside the loop, on each iteration, the program reads a single byte (`char`) from the input stream with `scanf`, stores that at `rbp-0x5`. Then it uses the sign-extended double-word conversion of that input to seed libc's `srand` function, and immediately calls `rand` to fill `eax` with the first number (dword) in that seed's generated pseudo-random sequence.
+It seems that the main logic is wrapped in a loop, whose counter is stored at `rbp-0x4`, and incremented by 1 at each iteration. The loop continues for `0x1c + 0x1` or 29 iterations. \
+Inside the loop, on each iteration, the program reads a single byte (`char`) from the input stream with `scanf`, stores that at `rbp-0x5`. Then it uses the sign-extended double-word conversion of that input to seed libc's `srand` function, and immediately calls `rand` to fill `eax` with the first number (dword) in that seed's generated pseudo-random sequence. \
 While `eax` holds the not-so-random number, the program uses the loop counter at `rbp-0x4`, to index into a static array of integers (DWORDs) called "check," and loads a DWORD into `edx`.
-Then it compares `eax`, and `edx`. If they are not equal, it prints `**Incorrect**`, else we get `**Correct**` and continue until the counter hits 29.
+Then it compares `eax`, and `edx`. If they are not equal, it prints `**Incorrect**`, else we get `**Correct**` and continue until the counter hits 29. \
 So it seems like there is no flag directly involved, but if we print a such a list:
 ```C
 #include <stdlib.h>
