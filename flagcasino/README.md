@@ -110,7 +110,7 @@ int main(void){
 and compare it against the first entries of the "check" array, we notice that the seed for the first four entries corresponds to the ASCII encoding of **HTB{** which happens to be the signature of our flag.
 So all that's left to do is to automate this matching with a script.
 We will use `pwntools` for this:
-
+		
 ```python
 import ctypes
 from pwn import *
